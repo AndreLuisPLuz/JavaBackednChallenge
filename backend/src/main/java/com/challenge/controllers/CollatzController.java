@@ -11,8 +11,6 @@ import com.challenge.interfaces.structure.Result;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 public class CollatzController {
@@ -25,8 +23,7 @@ public class CollatzController {
         
         return switch (result) {
             case Result.Ok<CollatzOutput> r -> ResponseEntity.ok().body(r);
-            case Result.Error<?> error -> ResponseEntity.badRequest().body(error);
+            case Result.Error<CollatzOutput> error -> ResponseEntity.badRequest().body(error);
         };
     }
-    
 }
