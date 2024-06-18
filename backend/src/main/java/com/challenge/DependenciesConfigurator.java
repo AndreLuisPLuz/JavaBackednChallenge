@@ -6,12 +6,18 @@ import org.springframework.context.annotation.Scope;
 
 import com.challenge.interfaces.services.CollatzService;
 import com.challenge.interfaces.services.ImaginaryExponentialService;
+import com.challenge.interfaces.services.JwtTokenService;
+import com.challenge.interfaces.services.LoginService;
 import com.challenge.interfaces.services.PasswordHasherService;
 import com.challenge.interfaces.services.ReverseService;
 import com.challenge.interfaces.services.TestPasswordService;
+import com.challenge.interfaces.services.UserService;
 import com.challenge.services.DefaultCollatzService;
 import com.challenge.services.DefaultImaginaryExponentialService;
+import com.challenge.services.DefaultLoginService;
 import com.challenge.services.DefaultReverseService;
+import com.challenge.services.DefaultUserService;
+import com.challenge.services.JavaJwtTokenProvider;
 import com.challenge.services.MockPasswordService;
 import com.challenge.services.PBKDF2PasswordHasher;
 
@@ -45,5 +51,23 @@ public class DependenciesConfigurator {
     @Scope("singleton")
     protected TestPasswordService testPasswordService() {
         return new MockPasswordService();
+    }
+
+    @Bean
+    @Scope("prototype")
+    protected JwtTokenService jwtTokenService() {
+        return new JavaJwtTokenProvider();
+    }
+
+    @Bean
+    @Scope("singleton")
+    protected UserService userService() {
+        return new DefaultUserService();
+    }
+
+    @Bean
+    @Scope("singleton")
+    protected LoginService loginService() {
+        return new DefaultLoginService();
     }
 }
